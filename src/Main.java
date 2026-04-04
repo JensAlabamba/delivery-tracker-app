@@ -56,17 +56,20 @@ public class Main {
                 case 4:
                     System.out.print("Enter Package ID to update: ");
                     String updateId = scanner.nextLine();
-                    System.out.print("Enter new status: ");
-                    String newStatus = scanner.nextLine();
-                    if (!deliveryManager.isValidStatus(newStatus)) {
-                        System.out.println("Invalid status.");
-                    } else {
-                        boolean updated = deliveryManager.updateDeliveryStatus(updateId, newStatus);
-                        if (updated) {
-                            System.out.println("Delivery status updated successfully.");
-                        } else {
-                            System.out.println("Delivery not found.");
+                    String newStatus;
+                    do {
+                        System.out.print("Enter new status (Pending, Out for Delivery, Delivered, Failed, Returned): ");
+                        newStatus = scanner.nextLine();
+
+                        if (!deliveryManager.isValidStatus(newStatus)) {
+                            System.out.println("Invalid status. Try again.");
                         }
+                    } while (!deliveryManager.isValidStatus(newStatus));
+                    boolean updated = deliveryManager.updateDeliveryStatus(updateId, newStatus);
+                    if (updated) {
+                        System.out.println("Delivery status updated successfully.");
+                    } else {
+                        System.out.println("Delivery not found.");
                     }
                     break;
                 case 5:
