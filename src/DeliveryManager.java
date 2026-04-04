@@ -1,7 +1,6 @@
 import java.util.ArrayList;
-import java.util.List;
 public class DeliveryManager {
-    private List<Delivery> deliveries;
+    private ArrayList<Delivery> deliveries;
 
     public DeliveryManager() {
         deliveries = new ArrayList<>();
@@ -36,10 +35,6 @@ public class DeliveryManager {
     }
 
     public boolean updateDeliveryStatus(String packageId, String newStatus) {
-        if (!isValidStatus(newStatus)) {
-            System.out.println("Invalid status.");
-            return false;
-        }
         Delivery delivery = findDeliveryById(packageId);
         if (delivery != null) {
             delivery.setStatus(newStatus);

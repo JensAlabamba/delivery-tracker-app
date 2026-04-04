@@ -58,11 +58,15 @@ public class Main {
                     String updateId = scanner.nextLine();
                     System.out.print("Enter new status: ");
                     String newStatus = scanner.nextLine();
-                    boolean updated = deliveryManager.updateDeliveryStatus(updateId, newStatus);
-                    if (updated) {
-                        System.out.println("Delivery status updated successfully.");
+                    if (!deliveryManager.isValidStatus(newStatus)) {
+                        System.out.println("Invalid status.");
                     } else {
-                        System.out.println("Delivery not found.");
+                        boolean updated = deliveryManager.updateDeliveryStatus(updateId, newStatus);
+                        if (updated) {
+                            System.out.println("Delivery status updated successfully.");
+                        } else {
+                            System.out.println("Delivery not found.");
+                        }
                     }
                     break;
                 case 5:
