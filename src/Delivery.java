@@ -38,13 +38,4 @@ public class Delivery {
                 "\nAddress: " + address +
                 "\nStatus: " + status;
     }
-
-    public boolean isValidStatus(String status) {
-    return status.equalsIgnoreCase("Pending") ||
-           status.equalsIgnoreCase("Out for Delivery") ||
-           status.equalsIgnoreCase("Delivered") ||
-           status.equalsIgnoreCase("Failed") ||
-           status.equalsIgnoreCase("Returned");
-    }
-
 }

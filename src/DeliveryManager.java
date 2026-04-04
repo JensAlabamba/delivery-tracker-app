@@ -1,12 +1,17 @@
 import java.util.ArrayList;
+import java.util.List;
 public class DeliveryManager {
-    private ArrayList<Delivery> deliveries;
+    private List<Delivery> deliveries;
 
     public DeliveryManager() {
         deliveries = new ArrayList<>();
     }
 
     public void addDelivery(Delivery delivery) {
+        if (findDeliveryById(delivery.getPackageId()) != null) {
+            System.out.println("Error: Package ID already exists.");
+            return;
+        }
         deliveries.add(delivery);
     }
 
@@ -31,6 +36,10 @@ public class DeliveryManager {
     }
 
     public boolean updateDeliveryStatus(String packageId, String newStatus) {
+        if (!isValidStatus(newStatus)) {
+            System.out.println("Invalid status.");
+            return false;
+        }
         Delivery delivery = findDeliveryById(packageId);
         if (delivery != null) {
             delivery.setStatus(newStatus);
@@ -40,8 +49,8 @@ public class DeliveryManager {
     }
 
     public boolean isValidStatus(String status) {
-        return status.equals("Pending") || status.equals("Out for Delivery") ||
-               status.equals("Delivered") || status.equals("Failed") || status.equals("Returned");
+        return status.equalsIgnoreCase("Pending") || status.equalsIgnoreCase("Out for Delivery") ||
+               status.equalsIgnoreCase("Delivered") || status.equalsIgnoreCase("Failed") || status.equalsIgnoreCase("Returned");
     }
 
     public boolean removeDeliveryById(String packageId) {
