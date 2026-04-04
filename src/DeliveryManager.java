@@ -38,4 +38,9 @@ public class DeliveryManager {
         }
         return false; // Delivery not found
     }
+
+    public boolean isValidStatus(String status) {
+        return status.equals("Pending") || status.equals("Out for Delivery") ||
+               status.equals("Delivered") || status.equals("Failed") || status.equals("Returned");
+    }
 }

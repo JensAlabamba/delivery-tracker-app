@@ -25,8 +25,17 @@ public class Main {
                     String recipientName = scanner.nextLine();
                     System.out.print("Enter Address: ");
                     String address = scanner.nextLine();
-                    System.out.print("Enter Status: ");
-                    String status = scanner.nextLine();
+                    String status;
+
+                    do {
+                        System.out.print("Enter status (Pending, Out for Delivery, Delivered, Failed, Returned): ");
+                        status = scanner.nextLine();
+
+                        if (!deliveryManager.isValidStatus(status)) {
+                            System.out.println("Invalid status. Try again.");
+                        }
+
+                    } while (!deliveryManager.isValidStatus(status));
                     Delivery delivery = new Delivery(packageId, recipientName, address, status);
                     deliveryManager.addDelivery(delivery);
                     break;
