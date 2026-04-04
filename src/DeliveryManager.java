@@ -43,4 +43,15 @@ public class DeliveryManager {
         return status.equals("Pending") || status.equals("Out for Delivery") ||
                status.equals("Delivered") || status.equals("Failed") || status.equals("Returned");
     }
+
+    public boolean removeDeliveryById(String packageId) {
+    Delivery delivery = findDeliveryById(packageId);
+
+    if (delivery != null) {
+        deliveries.remove(delivery);
+        return true;
+    }
+
+    return false;
+    }
 }

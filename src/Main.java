@@ -9,10 +9,11 @@ public class Main {
         while (!exit) {
             System.out.println("Delivery Management System");
             System.out.println("1. Add Delivery");
-            System.out.println("2. Display All Deliveries");
-            System.out.println("3. Find Delivery by Package ID");
+            System.out.println("2. View All Deliveries");
+            System.out.println("3. Search Delivery by Package ID");
             System.out.println("4. Update Delivery Status");
-            System.out.println("5. Exit");
+            System.out.println("5. Remove Delivery");
+            System.out.println("6. Exit");
             System.out.print("Choose an option: ");
             int choice = scanner.nextInt();
             scanner.nextLine(); // Consume newline
@@ -65,6 +66,17 @@ public class Main {
                     }
                     break;
                 case 5:
+                    System.out.print("Enter package ID to remove: ");
+                    String removeId = scanner.nextLine();
+                    boolean removed = deliveryManager.removeDeliveryById(removeId);
+                    
+                    if (removed) {
+                        System.out.println("Delivery removed successfully.");
+                    } else {
+                        System.out.println("Delivery not found.");
+                    }
+                    break;                
+                case 6:
                     exit = true;
                     break;
                 default:
