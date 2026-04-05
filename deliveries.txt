@@ -1,1 +1,2 @@
 1,Wojciech,wojtek@gmail.com,Pending
+2,Olena,olena@gmail.com,Out for Delivery

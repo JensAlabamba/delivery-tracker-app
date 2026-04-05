@@ -3,6 +3,7 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         DeliveryManager deliveryManager = new DeliveryManager();
+        deliveryManager.loadFromFile();
         Scanner scanner = new Scanner(System.in);
         boolean exit = false;
 
