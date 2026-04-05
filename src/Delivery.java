@@ -31,6 +31,20 @@ public class Delivery {
         this.status = status;
     }
 
+    public String toFileString() {
+        return packageId + "," + customerName + "," + address + "," + status;
+    }
+
+    public static Delivery fromFileString(String line) {
+        String[] parts = line.split(",");
+
+        if (parts.length == 4) {
+            return new Delivery(parts[0], parts[1], parts[2], parts[3]);
+        }
+
+        return null;
+    }
+
     @Override
     public String toString() {
         return "Package ID: " + packageId +

@@ -1,4 +1,6 @@
 import java.util.ArrayList;
+import java.io.*;
+
 public class DeliveryManager {
     private ArrayList<Delivery> deliveries;
 
@@ -6,12 +8,12 @@ public class DeliveryManager {
         deliveries = new ArrayList<>();
     }
 
-    public void addDelivery(Delivery delivery) {
+    public boolean addDelivery(Delivery delivery) {
         if (findDeliveryById(delivery.getPackageId()) != null) {
-            System.out.println("Error: Package ID already exists.");
-            return;
+            return false;
         }
         deliveries.add(delivery);
+        return true;
     }
 
     public void displayAllDeliveries() {
@@ -19,7 +21,7 @@ public class DeliveryManager {
             System.out.println("No deliveries to display.");
             return;
         }
-            for (Delivery delivery : deliveries) {
+        for (Delivery delivery : deliveries) {
             System.out.println(delivery);
             System.out.println("-------------------------");
         }
@@ -49,13 +51,48 @@ public class DeliveryManager {
     }
 
     public boolean removeDeliveryById(String packageId) {
-    Delivery delivery = findDeliveryById(packageId);
+        Delivery delivery = findDeliveryById(packageId);
 
-    if (delivery != null) {
-        deliveries.remove(delivery);
-        return true;
+        if (delivery != null) {
+            deliveries.remove(delivery);
+            return true;
+        }
+
+        return false;
     }
 
-    return false;
+    public int getTotalDeliveries() {
+        return deliveries.size();
+    }
+
+    public void displayDeliveriesByStatus(String status) {
+        boolean found = false;
+
+        for (Delivery delivery : deliveries) {
+            if (delivery.getStatus().equalsIgnoreCase(status)) {
+                System.out.println(delivery);
+                System.out.println("------------------------");
+                found = true;
+            }
+        }
+
+        if (!found) {
+            System.out.println("No deliveries found with status: " + status);
+        }
+    }
+
+    public void saveToFile() {
+        try {
+            PrintWriter writer = new PrintWriter(new FileWriter("deliveries.txt"));
+
+            for (Delivery delivery : deliveries) {
+                writer.println(delivery.toFileString());
+            }
+
+            writer.close();
+            System.out.println("Deliveries saved to file.");
+        } catch (IOException e) {
+            System.out.println("Error saving to file.");
+        }
     }
 }
