@@ -18,7 +18,10 @@ public class Main {
             System.out.println("5. Remove Delivery");
             System.out.println("6. Show Total Deliveries");
             System.out.println("7. Filter Deliveries by Status");
-            System.out.println("8. Exit");
+            System.out.println("8. Sort Deliveries by Status");
+            System.out.println("9. Sort Deliveries by Package ID");
+            System.out.println("10. Show Delivered and Pending Deliveries");
+            System.out.println("11. Exit");
             System.out.print("Choose an option: ");
             int choice = scanner.nextInt();
             scanner.nextLine(); // Consume newline
@@ -128,6 +131,21 @@ public class Main {
                     scanner.nextLine();
                     break;
                 case 8:
+                    deliveryManager.sortByStatus();
+                    System.out.println("\nPress Enter to continue...");
+                    scanner.nextLine();
+                    break;
+                case 9:
+                    deliveryManager.sortByPackageId();
+                    System.out.println("\nPress Enter to continue...");
+                    scanner.nextLine();
+                    break;
+                case 10:
+                    deliveryManager.displayDeliveredAndPending();
+                    System.out.println("\nPress Enter to continue...");
+                    scanner.nextLine();
+                    break;
+                case 11:
                     exit = true;
                     break;
                 default:
