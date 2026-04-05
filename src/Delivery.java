@@ -47,9 +47,10 @@ public class Delivery {
 
     @Override
     public String toString() {
-        return "Package ID: " + packageId +
-                "\nCustomer Name: " + customerName +
-                "\nAddress: " + address +
-                "\nStatus: " + status;
+        return "=== Delivery ===\n" +
+               "Package ID: " + packageId + "\n" +
+               "Customer: " + customerName + "\n" +
+               "Address: " + address + "\n" +
+               "Status: " + status;
     }
 }

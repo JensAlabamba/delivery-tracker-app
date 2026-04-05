@@ -8,6 +8,9 @@ public class Main {
         boolean exit = false;
 
         while (!exit) {
+            System.out.println("\n==============================");
+            System.out.println(" Delivery Management System ");
+            System.out.println("==============================");
             System.out.println("1. Add Delivery");
             System.out.println("2. View All Deliveries");
             System.out.println("3. Search Delivery by Package ID");
@@ -48,9 +51,13 @@ public class Main {
                     } else {
                         System.out.println("Error: Package ID already exists.");
                     }
+                    System.out.println("\nPress Enter to continue...");
+                    scanner.nextLine();
                     break;
                 case 2:
                     deliveryManager.displayAllDeliveries();
+                    System.out.println("\nPress Enter to continue...");
+                    scanner.nextLine();
                     break;
                 case 3:
                     System.out.print("Enter Package ID to find: ");
@@ -61,6 +68,8 @@ public class Main {
                     } else {
                         System.out.println("Delivery not found.");
                     }
+                    System.out.println("\nPress Enter to continue...");
+                    scanner.nextLine();
                     break;
                 case 4:
                     System.out.print("Enter Package ID to update: ");
@@ -81,6 +90,8 @@ public class Main {
                     } else {
                         System.out.println("Delivery not found.");
                     }
+                    System.out.println("\nPress Enter to continue...");
+                    scanner.nextLine();
                     break;
                 case 5:
                     System.out.print("Enter package ID to remove: ");
@@ -93,9 +104,13 @@ public class Main {
                     } else {
                         System.out.println("Delivery not found.");
                     }
+                    System.out.println("\nPress Enter to continue...");
+                    scanner.nextLine();
                     break;   
                 case 6:
                     System.out.println("Total deliveries: " + deliveryManager.getTotalDeliveries());
+                    System.out.println("\nPress Enter to continue...");
+                    scanner.nextLine();
                     break;             
                 case 7:
                     String filterStatus;
@@ -109,12 +124,16 @@ public class Main {
                     } while (!deliveryManager.isValidStatus(filterStatus));
 
                     deliveryManager.displayDeliveriesByStatus(filterStatus);
+                    System.out.println("\nPress Enter to continue...");
+                    scanner.nextLine();
                     break;
                 case 8:
                     exit = true;
                     break;
                 default:
                     System.out.println("Invalid option. Please try again.");
+                    System.out.println("\nPress Enter to continue...");
+                    scanner.nextLine();
             }
         }
 

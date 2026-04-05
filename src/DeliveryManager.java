@@ -98,28 +98,28 @@ public class DeliveryManager {
     }
 
     public void loadFromFile() {
-    try {
-        File file = new File("deliveries.txt");
+        try {
+            File file = new File("deliveries.txt");
 
-        if (!file.exists()) {
-            return; // No file yet, nothing to load
-        }
-
-        Scanner fileScanner = new Scanner(file);
-
-        while (fileScanner.hasNextLine()) {
-            String line = fileScanner.nextLine();
-            Delivery delivery = Delivery.fromFileString(line);
-
-            if (delivery != null) {
-                deliveries.add(delivery);
+            if (!file.exists()) {
+                return; // No file yet, nothing to load
             }
-        }
 
-        fileScanner.close();
-        System.out.println("Deliveries loaded from file.");
-    } catch (Exception e) {
-        System.out.println("Error loading from file.");
-    }
+            Scanner fileScanner = new Scanner(file);
+
+            while (fileScanner.hasNextLine()) {
+                String line = fileScanner.nextLine();
+                Delivery delivery = Delivery.fromFileString(line);
+
+                if (delivery != null) {
+                    deliveries.add(delivery);
+                }
+            }
+
+            fileScanner.close();
+            System.out.println("Deliveries loaded from file.");
+        } catch (Exception e) {
+            System.out.println("Error loading from file.");
+        }
     }
 }
