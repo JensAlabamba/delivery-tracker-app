@@ -7,10 +7,17 @@ import java.util.Scanner;
 public class DeliveryManager {
     private ArrayList<Delivery> deliveries;
 
+    /**
+     * Initializes an empty in-memory delivery collection.
+     */
     public DeliveryManager() {
         deliveries = new ArrayList<>();
     }
 
+    /**
+     * Adds a delivery if its package ID is not already present.
+     * Returns true when added, false when duplicate.
+     */
     public boolean addDelivery(Delivery delivery) {
         if (findDeliveryById(delivery.getPackageId()) != null) {
             return false;
@@ -19,6 +26,9 @@ public class DeliveryManager {
         return true;
     }
 
+    /**
+     * Prints every delivery to the console.
+     */
     public void displayAllDeliveries() {
         if (deliveries.isEmpty()) {
             System.out.println("No deliveries to display.");
@@ -30,6 +40,10 @@ public class DeliveryManager {
         }
     }
 
+    /**
+     * Finds one delivery by package ID (case-insensitive).
+     * Returns null when not found.
+     */
     public Delivery findDeliveryById(String packageId) {
         for (Delivery delivery : deliveries) {
             if (delivery.getPackageId().equalsIgnoreCase(packageId)) {
@@ -39,6 +53,10 @@ public class DeliveryManager {
         return null; // Not found
     }
 
+    /**
+     * Updates the status of a delivery by package ID.
+     * Returns true when updated, false when delivery is missing.
+     */
     public boolean updateDeliveryStatus(String packageId, String newStatus) {
         Delivery delivery = findDeliveryById(packageId);
         if (delivery != null) {
@@ -48,15 +66,25 @@ public class DeliveryManager {
         return false; // Delivery not found
     }
 
+    /**
+     * Returns the internal delivery list reference.
+     */
     public ArrayList<Delivery> getAllDeliveries() {
         return deliveries;
     }
 
+    /**
+     * Validates that the status is one of the supported values.
+     */
     public boolean isValidStatus(String status) {
         return status.equalsIgnoreCase("Pending") || status.equalsIgnoreCase("Out for Delivery") ||
                status.equalsIgnoreCase("Delivered") || status.equalsIgnoreCase("Failed") || status.equalsIgnoreCase("Returned");
     }
 
+    /**
+     * Removes a delivery by package ID.
+     * Returns true when removed, false when not found.
+     */
     public boolean removeDeliveryById(String packageId) {
         Delivery delivery = findDeliveryById(packageId);
 
@@ -68,10 +96,16 @@ public class DeliveryManager {
         return false;
     }
 
+    /**
+     * Returns the current number of tracked deliveries.
+     */
     public int getTotalDeliveries() {
         return deliveries.size();
     }
 
+    /**
+     * Prints deliveries that match a given status.
+     */
     public void displayDeliveriesByStatus(String status) {
         boolean found = false;
 
@@ -88,6 +122,9 @@ public class DeliveryManager {
         }
     }
 
+    /**
+     * Sorts deliveries by business status order.
+     */
     public void sortByStatus() {
         Collections.sort(deliveries, new Comparator<Delivery>() {
             @Override
@@ -100,6 +137,9 @@ public class DeliveryManager {
         System.out.println("Deliveries sorted by status (Pending first, Delivered last).");
     }
 
+    /**
+     * Converts a status string to its sort priority.
+     */
     private int getStatusOrder(String status) {
         switch (status.toLowerCase()) {
             case "pending": return 1;
@@ -111,6 +151,9 @@ public class DeliveryManager {
         }
     }
 
+    /**
+     * Sorts deliveries alphabetically by package ID.
+     */
     public void sortByPackageId() {
         Collections.sort(deliveries, new Comparator<Delivery>() {
             @Override
@@ -121,6 +164,9 @@ public class DeliveryManager {
         System.out.println("Deliveries sorted by Package ID.");
     }
 
+    /**
+     * Prints active deliveries (Pending or Out for Delivery).
+     */
     public void displayDeliveredAndPending() {
         boolean found = false;
 
@@ -138,7 +184,9 @@ public class DeliveryManager {
         }
     }
 
-    // New methods that return data instead of printing
+    /**
+     * Returns active deliveries (Pending or Out for Delivery).
+     */
     public ArrayList<Delivery> getActiveDeliveries() {
         ArrayList<Delivery> result = new ArrayList<>();
         for (Delivery delivery : deliveries) {
@@ -150,10 +198,16 @@ public class DeliveryManager {
         return result;
     }
 
+    /**
+     * Returns a defensive copy of all deliveries.
+     */
     public ArrayList<Delivery> getAllDeliveriesList() {
         return new ArrayList<>(deliveries); // Return a copy
     }
 
+    /**
+     * Returns deliveries that match a specific status.
+     */
     public ArrayList<Delivery> getDeliveriesByStatus(String status) {
         ArrayList<Delivery> result = new ArrayList<>();
         for (Delivery delivery : deliveries) {
@@ -164,6 +218,9 @@ public class DeliveryManager {
         return result;
     }
 
+    /**
+     * Saves all deliveries to deliveries.txt.
+     */
     public void saveToFile() {
         try {
             PrintWriter writer = new PrintWriter(new FileWriter("deliveries.txt"));
@@ -179,6 +236,9 @@ public class DeliveryManager {
         }
     }
 
+    /**
+     * Loads deliveries from deliveries.txt when the file exists.
+     */
     public void loadFromFile() {
         try {
             File file = new File("deliveries.txt");

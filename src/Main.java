@@ -2,6 +2,9 @@ import java.util.Scanner;
 import java.util.ArrayList;
 
 public class Main {
+    /**
+     * Runs the console-based delivery management workflow.
+     */
     public static void main(String[] args) {
         DeliveryManager deliveryManager = new DeliveryManager();
         deliveryManager.loadFromFile();
@@ -43,6 +46,7 @@ public class Main {
 
             switch (choice) {
                 case 1:
+                    // Add a new delivery after validating status input.
                     System.out.print("Enter Package ID: ");
                     String packageId = scanner.nextLine();
                     System.out.print("Enter Recipient Name: ");
@@ -73,11 +77,13 @@ public class Main {
                     scanner.nextLine();
                     break;
                 case 2:
+                    // Display every tracked delivery.
                     deliveryManager.displayAllDeliveries();
                     System.out.println("\nPress Enter to continue...");
                     scanner.nextLine();
                     break;
                 case 3:
+                    // Search for one delivery by package ID.
                     System.out.print("Enter Package ID to find: ");
                     String searchId = scanner.nextLine();
                     Delivery foundDelivery = deliveryManager.findDeliveryById(searchId);
@@ -90,6 +96,7 @@ public class Main {
                     scanner.nextLine();
                     break;
                 case 4:
+                    // Update status for an existing delivery.
                     System.out.print("Enter Package ID to update: ");
                     String updateId = scanner.nextLine();
                     String newStatus;
@@ -112,6 +119,7 @@ public class Main {
                     scanner.nextLine();
                     break;
                 case 5:
+                    // Remove one delivery by ID.
                     System.out.print("Enter package ID to remove: ");
                     String removeId = scanner.nextLine();
                     boolean removed = deliveryManager.removeDeliveryById(removeId);
@@ -126,11 +134,13 @@ public class Main {
                     scanner.nextLine();
                     break;   
                 case 6:
+                    // Print the total number of deliveries.
                     System.out.println("Total deliveries: " + deliveryManager.getTotalDeliveries());
                     System.out.println("\nPress Enter to continue...");
                     scanner.nextLine();
                     break;             
                 case 7:
+                    // Filter and show deliveries with a selected status.
                     String filterStatus;
                     do {
                         System.out.print("Enter status to filter by (Pending, Out for Delivery, Delivered, Failed, Returned): ");
@@ -146,18 +156,21 @@ public class Main {
                     scanner.nextLine();
                     break;
                 case 8:
+                    // Sort by status order, then display results.
                     deliveryManager.sortByStatus();
                     deliveryManager.displayAllDeliveries();
                     System.out.println("\nPress Enter to continue...");
                     scanner.nextLine();
                     break;
                 case 9:
+                    // Sort alphabetically by package ID, then display results.
                     deliveryManager.sortByPackageId();
                     deliveryManager.displayAllDeliveries();
                     System.out.println("\nPress Enter to continue...");
                     scanner.nextLine();
                     break;
                 case 10:
+                    // Show only active deliveries (Pending / Out for Delivery).
                     ArrayList<Delivery> activeDeliveries = deliveryManager.getActiveDeliveries();
                     if (activeDeliveries.isEmpty()) {
                         System.out.println("No active deliveries found.");

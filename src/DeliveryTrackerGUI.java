@@ -40,6 +40,9 @@ public class DeliveryTrackerGUI extends JFrame {
     private final Color LIGHT_TITLE_FG = new Color(40, 40, 40);
     private final Color LIGHT_BORDER = new Color(180, 180, 180);
 
+    /**
+     * Builds the main GUI frame and loads persisted delivery data.
+     */
     public DeliveryTrackerGUI() {
         deliveryManager = new DeliveryManager();
         deliveryManager.loadFromFile();
@@ -47,6 +50,9 @@ public class DeliveryTrackerGUI extends JFrame {
         initializeGUI();
     }
 
+    /**
+     * Creates and arranges all Swing components and event listeners.
+     */
     private void initializeGUI() {
         setTitle("Delivery Management System");
         setSize(920, 690);
@@ -166,12 +172,18 @@ public class DeliveryTrackerGUI extends JFrame {
         applyTheme();
     }
 
+    /**
+     * Writes the initial message shown when the app starts.
+     */
     private void displayWelcomeMessage() {
         displayArea.setText("Welcome to Delivery Management System!\n\n");
         displayArea.append("Loaded " + deliveryManager.getTotalDeliveries() + " deliveries from file.\n\n");
         displayArea.append("Use the buttons on the left to manage deliveries.\n");
     }
 
+    /**
+     * Applies dark or light colors to all themed UI components.
+     */
     private void applyTheme() {
         if (isDarkTheme) {
             // Dark theme
@@ -246,6 +258,9 @@ public class DeliveryTrackerGUI extends JFrame {
         displayArea.repaint();
     }
 
+    /**
+     * Applies shared styling and hover behavior to one button.
+     */
     private void styleButton(JButton button, Color bg, Color fg, Color hoverBg) {
         button.setBackground(bg);
         button.setForeground(fg);
@@ -279,7 +294,13 @@ public class DeliveryTrackerGUI extends JFrame {
     }
 
     // Action Listeners
+    /**
+     * Handles adding a new delivery from dialog input.
+     */
     private class AddDeliveryListener implements ActionListener {
+        /**
+         * Prompts for delivery details and saves when creation succeeds.
+         */
         public void actionPerformed(ActionEvent e) {
             String packageId = JOptionPane.showInputDialog("Enter Package ID:");
             if (packageId == null || packageId.trim().isEmpty()) return;
@@ -308,7 +329,13 @@ public class DeliveryTrackerGUI extends JFrame {
         }
     }
 
+    /**
+     * Handles displaying every delivery in the output area.
+     */
     private class ViewDeliveriesListener implements ActionListener {
+        /**
+         * Loads all deliveries from the manager and renders them.
+         */
         public void actionPerformed(ActionEvent e) {
             displayArea.setText("All Deliveries:\n\n");
             ArrayList<Delivery> allDeliveries = deliveryManager.getAllDeliveriesList();
@@ -322,7 +349,13 @@ public class DeliveryTrackerGUI extends JFrame {
         }
     }
 
+    /**
+     * Handles searching for one delivery by package ID.
+     */
     private class SearchDeliveryListener implements ActionListener {
+        /**
+         * Prompts for an ID and shows either the match or not-found message.
+         */
         public void actionPerformed(ActionEvent e) {
             String packageId = JOptionPane.showInputDialog("Enter Package ID to search:");
             if (packageId == null || packageId.trim().isEmpty()) return;
@@ -336,7 +369,13 @@ public class DeliveryTrackerGUI extends JFrame {
         }
     }
 
+    /**
+     * Handles changing the status of an existing delivery.
+     */
     private class UpdateDeliveryListener implements ActionListener {
+        /**
+         * Prompts for ID and new status, then persists the update.
+         */
         public void actionPerformed(ActionEvent e) {
             String packageId = JOptionPane.showInputDialog("Enter Package ID to update:");
             if (packageId == null || packageId.trim().isEmpty()) return;
@@ -360,7 +399,13 @@ public class DeliveryTrackerGUI extends JFrame {
         }
     }
 
+    /**
+     * Handles deleting a delivery after confirmation.
+     */
     private class RemoveDeliveryListener implements ActionListener {
+        /**
+         * Prompts for ID, confirms deletion, removes record, and saves.
+         */
         public void actionPerformed(ActionEvent e) {
             String packageId = JOptionPane.showInputDialog("Enter Package ID to remove:");
             if (packageId == null || packageId.trim().isEmpty()) return;
@@ -382,13 +427,25 @@ public class DeliveryTrackerGUI extends JFrame {
         }
     }
 
+    /**
+     * Handles displaying the total delivery count.
+     */
     private class TotalDeliveriesListener implements ActionListener {
+        /**
+         * Shows the current total number of tracked deliveries.
+         */
         public void actionPerformed(ActionEvent e) {
             displayArea.setText("Total Deliveries: " + deliveryManager.getTotalDeliveries() + "\n");
         }
     }
 
+    /**
+     * Handles filtering deliveries by one selected status.
+     */
     private class FilterDeliveriesListener implements ActionListener {
+        /**
+         * Prompts for status and renders only matching deliveries.
+         */
         public void actionPerformed(ActionEvent e) {
             String[] statuses = {"Pending", "Out for Delivery", "Delivered", "Failed", "Returned"};
             String status = (String) JOptionPane.showInputDialog(null, "Select Status to Filter:",
@@ -407,7 +464,13 @@ public class DeliveryTrackerGUI extends JFrame {
         }
     }
 
+    /**
+     * Handles sorting deliveries using status priority.
+     */
     private class SortByStatusListener implements ActionListener {
+        /**
+         * Sorts by status and displays the sorted result list.
+         */
         public void actionPerformed(ActionEvent e) {
             deliveryManager.sortByStatus();
             displayArea.setText("Deliveries sorted by status (Pending first, Delivered last):\n\n");
@@ -418,7 +481,13 @@ public class DeliveryTrackerGUI extends JFrame {
         }
     }
 
+    /**
+     * Handles sorting deliveries alphabetically by package ID.
+     */
     private class SortByIdListener implements ActionListener {
+        /**
+         * Sorts by package ID and displays the sorted result list.
+         */
         public void actionPerformed(ActionEvent e) {
             deliveryManager.sortByPackageId();
             displayArea.setText("Deliveries sorted by Package ID:\n\n");
@@ -429,7 +498,13 @@ public class DeliveryTrackerGUI extends JFrame {
         }
     }
 
+    /**
+     * Handles showing only currently active deliveries.
+     */
     private class ShowActiveDeliveriesListener implements ActionListener {
+        /**
+         * Displays deliveries that are pending or out for delivery.
+         */
         public void actionPerformed(ActionEvent e) {
             displayArea.setText("Active Deliveries (Pending and Out for Delivery):\n\n");
             ArrayList<Delivery> activeDeliveries = deliveryManager.getActiveDeliveries();
@@ -443,13 +518,22 @@ public class DeliveryTrackerGUI extends JFrame {
         }
     }
 
+    /**
+     * Handles switching between dark and light themes.
+     */
     private class ThemeToggleListener implements ActionListener {
+        /**
+         * Flips the theme flag and reapplies UI colors.
+         */
         public void actionPerformed(ActionEvent e) {
             isDarkTheme = !isDarkTheme;
             applyTheme();
         }
     }
 
+    /**
+     * Launches the GUI on Swing's event dispatch thread.
+     */
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> new DeliveryTrackerGUI());
     }
