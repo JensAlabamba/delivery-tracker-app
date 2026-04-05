@@ -132,11 +132,13 @@ public class Main {
                     break;
                 case 8:
                     deliveryManager.sortByStatus();
+                    deliveryManager.displayAllDeliveries();
                     System.out.println("\nPress Enter to continue...");
                     scanner.nextLine();
                     break;
                 case 9:
                     deliveryManager.sortByPackageId();
+                    deliveryManager.displayAllDeliveries();
                     System.out.println("\nPress Enter to continue...");
                     scanner.nextLine();
                     break;
