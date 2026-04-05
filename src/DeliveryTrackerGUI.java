@@ -23,18 +23,7 @@ public class DeliveryTrackerGUI extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
 
-        // Create display area
-        displayArea = new JTextArea();
-        displayArea.setEditable(false);
-        displayArea.setFont(new Font("Monospaced", Font.PLAIN, 12));
-        JScrollPane scrollPane = new JScrollPane(displayArea);
-        add(scrollPane, BorderLayout.CENTER);
-
-        // Create button panel
-        JPanel buttonPanel = new JPanel();
-        buttonPanel.setLayout(new GridLayout(6, 2, 5, 5));
-        buttonPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-
+        // Initialize buttons
         addButton = new JButton("Add Delivery");
         viewButton = new JButton("View All Deliveries");
         searchButton = new JButton("Search by Package ID");
@@ -46,17 +35,48 @@ public class DeliveryTrackerGUI extends JFrame {
         sortIdButton = new JButton("Sort by Package ID");
         showActiveButton = new JButton("Show Active Deliveries");
 
-        // Add buttons to panel
-        buttonPanel.add(addButton);
-        buttonPanel.add(viewButton);
-        buttonPanel.add(searchButton);
-        buttonPanel.add(updateButton);
-        buttonPanel.add(removeButton);
-        buttonPanel.add(totalButton);
-        buttonPanel.add(filterButton);
-        buttonPanel.add(sortStatusButton);
-        buttonPanel.add(sortIdButton);
-        buttonPanel.add(showActiveButton);
+        // Create display area
+        displayArea = new JTextArea();
+        displayArea.setEditable(false);
+        displayArea.setFont(new Font("Monospaced", Font.PLAIN, 12));
+        JScrollPane scrollPane = new JScrollPane(displayArea);
+        add(scrollPane, BorderLayout.CENTER);
+
+        // Create button panel with sections
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS));
+        buttonPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+
+        // 📦 Delivery Actions Section
+        JPanel deliveryActionsPanel = new JPanel(new GridLayout(1, 3, 5, 5));
+        deliveryActionsPanel.setBorder(BorderFactory.createTitledBorder("📦 Delivery Actions"));
+        deliveryActionsPanel.add(addButton);
+        deliveryActionsPanel.add(updateButton);
+        deliveryActionsPanel.add(removeButton);
+        buttonPanel.add(deliveryActionsPanel);
+
+        // Add spacing
+        buttonPanel.add(Box.createVerticalStrut(10));
+
+        // 🔍 Search & Filter Section
+        JPanel searchFilterPanel = new JPanel(new GridLayout(1, 3, 5, 5));
+        searchFilterPanel.setBorder(BorderFactory.createTitledBorder("🔍 Search & Filter"));
+        searchFilterPanel.add(searchButton);
+        searchFilterPanel.add(filterButton);
+        searchFilterPanel.add(showActiveButton);
+        buttonPanel.add(searchFilterPanel);
+
+        // Add spacing
+        buttonPanel.add(Box.createVerticalStrut(10));
+
+        // 📊 Sorting & Stats Section
+        JPanel sortingStatsPanel = new JPanel(new GridLayout(2, 2, 5, 5));
+        sortingStatsPanel.setBorder(BorderFactory.createTitledBorder("📊 Sorting & Stats"));
+        sortingStatsPanel.add(viewButton);
+        sortingStatsPanel.add(totalButton);
+        sortingStatsPanel.add(sortStatusButton);
+        sortingStatsPanel.add(sortIdButton);
+        buttonPanel.add(sortingStatsPanel);
 
         add(buttonPanel, BorderLayout.WEST);
 
