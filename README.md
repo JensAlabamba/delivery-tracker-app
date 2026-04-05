@@ -1,6 +1,6 @@
 # Delivery Tracker App
 
-A Java console application for managing package deliveries.  
+A Java application for managing package deliveries with both console and GUI interfaces.
 This project allows users to add, search, update, remove, and filter delivery records, with data saved to a text file.
 
 ## Features
@@ -15,6 +15,7 @@ This project allows users to add, search, update, remove, and filter delivery re
 - Sort deliveries by package ID (alphabetical)
 - Show only delivered and pending deliveries
 - Save and load deliveries from a file
+- **GUI Interface** using Java Swing
 
 ## Technologies Used
 - Java
@@ -25,12 +26,29 @@ This project allows users to add, search, update, remove, and filter delivery re
 ## Project Structure
 - `Delivery.java` - delivery object model
 - `DeliveryManager.java` - business logic and file handling
-- `Main.java` - user interface and menu system
+- `Main.java` - console user interface and menu system
+- `DeliveryTrackerGUI.java` - **NEW** Swing-based GUI interface
 
 ## How to Run
+
+### Console Version
 1. Open the project in VS Code or another Java IDE
 2. Compile the files inside `src`
 3. Run `Main.java`
+
+### GUI Version (Recommended)
+1. Open the project in VS Code or another Java IDE
+2. Compile the files inside `src`
+3. Run `DeliveryTrackerGUI.java`
+
+The GUI provides an intuitive button-based interface for all delivery management operations.
+
+## GUI Features
+- **Button-based navigation** - Click buttons instead of typing menu numbers
+- **Input dialogs** - User-friendly popups for data entry
+- **Real-time display** - Results shown immediately in the main text area
+- **Confirmation dialogs** - Safety prompts for destructive operations
+- **Status selection dropdowns** - Easy status selection from predefined options
 
 ## Usage
 The program starts with a console menu offering the following options:
