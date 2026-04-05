@@ -40,16 +40,22 @@ A comprehensive Java application for managing package deliveries with both conso
 7. Filter Deliveries by Status
 8. Sort Deliveries by Status
 9. Sort Deliveries by Package ID
-10. Show Delivered and Pending Deliveries
+10. Show Active Deliveries
 11. Exit
 Choose an option:
 ```
 
 ### GUI Interface
-- **Main Window**: Clean layout with action buttons on the left, results display on the right
-- **Input Dialogs**: User-friendly popups for data entry with dropdown status selection
-- **Confirmation Dialogs**: Safety prompts for destructive operations
-- **Real-time Display**: Immediate feedback for all operations
+- **Main Window**: 920×690 window with organized button panel on the left and results display on the right
+- **Grouped Button Sections**: Buttons organized into three labeled sections:
+  - 📦 **Delivery Actions** — Add, Update, Remove
+  - 🔍 **Search & Filter** — Search by ID, Filter by Status, Show Active
+  - 📊 **Sorting & Stats** — View All, Total Count, Sort by Status, Sort by Package ID
+  - 🎨 **Theme** — Toggle between dark and light theme
+- **Dark / Light Theme Toggle** — Switch between a modern dark theme (dark gray + light text) and a clean light theme with a single button
+- **Input Dialogs** — User-friendly popups for data entry with dropdown status selection
+- **Confirmation Dialogs** — Safety prompts for destructive operations
+- **Real-time Display** — Immediate feedback shown in the Consolas text area
 
 ## 🛠️ Technologies Used
 - **Java** - Core programming language
@@ -141,36 +147,3 @@ Wojciech Klonowski
 ---
 
 **Enjoy managing your deliveries efficiently! 📦✨**
-- **Status selection dropdowns** - Easy status selection from predefined options
-
-## Usage
-The program starts with a console menu offering the following options:
-1. Add Delivery - Create a new delivery record
-2. View All Deliveries - Display all delivery records
-3. Search Delivery by Package ID - Find a specific delivery
-4. Update Delivery Status - Change the status of an existing delivery
-5. Remove Delivery - Delete a delivery record
-6. Show Total Deliveries - Display the count of all deliveries
-7. Filter Deliveries by Status - Show deliveries with a specific status
-8. Sort Deliveries by Status - Order deliveries by status priority
-9. Sort Deliveries by Package ID - Order deliveries alphabetically
-10. Show Active Deliveries - Display only active deliveries
-11. Exit - Close the program
-
-## Example Status Values
-- Pending
-- Out for Delivery
-- Delivered
-- Failed
-- Returned
-
-## Sorting Behavior
-- **Sort by Status**: Orders deliveries by status priority (Pending → Out for Delivery → Delivered → Failed → Returned)
-- **Sort by Package ID**: Alphabetical ordering of package IDs
-- **Active Deliveries**: Shows deliveries with status "Pending" or "Out for Delivery"
-
-## File Storage
-The program stores delivery data in `deliveries.txt` so records can be loaded again the next time the program runs.
-
-## Author
-Wojciech Klonowski
