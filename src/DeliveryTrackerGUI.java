@@ -61,7 +61,7 @@ public class DeliveryTrackerGUI extends JFrame {
         sortStatusButton = new JButton("Sort by Status");
         sortIdButton = new JButton("Sort by Package ID");
         showActiveButton = new JButton("Show Active Deliveries");
-        themeToggleButton = new JButton("🌙 Dark Theme");
+        themeToggleButton = new JButton("Light Theme");
         themeButtons = new JButton[] { addButton, viewButton, searchButton, updateButton, removeButton,
                 totalButton, filterButton, sortStatusButton, sortIdButton, showActiveButton, themeToggleButton };
 
@@ -173,16 +173,22 @@ public class DeliveryTrackerGUI extends JFrame {
             searchFilterPanel.setBackground(DARK_PANEL);
             sortingStatsPanel.setBackground(DARK_PANEL);
             themePanel.setBackground(DARK_PANEL);
-            for (JButton button : themeButtons) {
-                button.setBackground(DARK_BUTTON);
-                button.setForeground(DARK_FG);
-                button.setBorder(BorderFactory.createLineBorder(ACCENT, 1));
-            }
+            styleButton(addButton, DARK_BUTTON, DARK_FG);
+            styleButton(viewButton, DARK_BUTTON, DARK_FG);
+            styleButton(searchButton, DARK_BUTTON, DARK_FG);
+            styleButton(updateButton, DARK_BUTTON, DARK_FG);
+            styleButton(removeButton, DARK_BUTTON, DARK_FG);
+            styleButton(totalButton, DARK_BUTTON, DARK_FG);
+            styleButton(filterButton, DARK_BUTTON, DARK_FG);
+            styleButton(sortStatusButton, DARK_BUTTON, DARK_FG);
+            styleButton(sortIdButton, DARK_BUTTON, DARK_FG);
+            styleButton(showActiveButton, DARK_BUTTON, DARK_FG);
+            styleButton(themeToggleButton, DARK_BUTTON, DARK_FG);
             setBorderTitleColor(deliveryActionsPanel, ACCENT);
             setBorderTitleColor(searchFilterPanel, ACCENT);
             setBorderTitleColor(sortingStatsPanel, ACCENT);
             setBorderTitleColor(themePanel, ACCENT);
-            themeToggleButton.setText("☀️ Light Theme");
+            themeToggleButton.setText("Light Theme");
         } else {
             // Light theme
             displayArea.setBackground(LIGHT_TEXT_BG);
@@ -195,16 +201,22 @@ public class DeliveryTrackerGUI extends JFrame {
             searchFilterPanel.setBackground(LIGHT_PANEL);
             sortingStatsPanel.setBackground(LIGHT_PANEL);
             themePanel.setBackground(LIGHT_PANEL);
-            for (JButton button : themeButtons) {
-                button.setBackground(LIGHT_BUTTON);
-                button.setForeground(LIGHT_FG);
-                button.setBorder(BorderFactory.createLineBorder(ACCENT, 1));
-            }
+            styleButton(addButton, LIGHT_BUTTON, LIGHT_FG);
+            styleButton(viewButton, LIGHT_BUTTON, LIGHT_FG);
+            styleButton(searchButton, LIGHT_BUTTON, LIGHT_FG);
+            styleButton(updateButton, LIGHT_BUTTON, LIGHT_FG);
+            styleButton(removeButton, LIGHT_BUTTON, LIGHT_FG);
+            styleButton(totalButton, LIGHT_BUTTON, LIGHT_FG);
+            styleButton(filterButton, LIGHT_BUTTON, LIGHT_FG);
+            styleButton(sortStatusButton, LIGHT_BUTTON, LIGHT_FG);
+            styleButton(sortIdButton, LIGHT_BUTTON, LIGHT_FG);
+            styleButton(showActiveButton, LIGHT_BUTTON, LIGHT_FG);
+            styleButton(themeToggleButton, LIGHT_BUTTON, LIGHT_FG);
             setBorderTitleColor(deliveryActionsPanel, ACCENT);
             setBorderTitleColor(searchFilterPanel, ACCENT);
             setBorderTitleColor(sortingStatsPanel, ACCENT);
             setBorderTitleColor(themePanel, ACCENT);
-            themeToggleButton.setText("🌙 Dark Theme");
+            themeToggleButton.setText("Dark Theme");
         }
         
         // Refresh the UI
@@ -212,6 +224,15 @@ public class DeliveryTrackerGUI extends JFrame {
         buttonPanel.repaint();
         displayArea.revalidate();
         displayArea.repaint();
+    }
+
+    private void styleButton(JButton button, Color bg, Color fg) {
+        button.setBackground(bg);
+        button.setForeground(fg);
+        button.setFocusPainted(false);
+        button.setBorderPainted(false);
+        button.setFont(new Font("Arial", Font.BOLD, 12));
+        button.setCursor(new Cursor(Cursor.HAND_CURSOR));
     }
 
     private void setBorderTitleColor(JPanel panel, Color color) {
