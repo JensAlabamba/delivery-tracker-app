@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Main {
     public static void main(String[] args) {
@@ -20,11 +21,25 @@ public class Main {
             System.out.println("7. Filter Deliveries by Status");
             System.out.println("8. Sort Deliveries by Status");
             System.out.println("9. Sort Deliveries by Package ID");
-            System.out.println("10. Show Delivered and Pending Deliveries");
+            System.out.println("10. Show Active Deliveries");
             System.out.println("11. Exit");
             System.out.print("Choose an option: ");
-            int choice = scanner.nextInt();
-            scanner.nextLine(); // Consume newline
+            int choice = -1;
+            try {
+                choice = scanner.nextInt();
+                scanner.nextLine(); // Consume newline
+            } catch (Exception e) {
+                System.out.println("Invalid input. Please enter a number.");
+                scanner.nextLine(); // Clear invalid input
+                continue;
+            }
+
+            if (choice < 1 || choice > 11) {
+                System.out.println("Invalid option. Please choose a number between 1 and 11.");
+                System.out.println("\nPress Enter to continue...");
+                scanner.nextLine();
+                continue;
+            }
 
             switch (choice) {
                 case 1:
@@ -143,7 +158,17 @@ public class Main {
                     scanner.nextLine();
                     break;
                 case 10:
-                    deliveryManager.displayDeliveredAndPending();
+                    ArrayList<Delivery> activeDeliveries = deliveryManager.getActiveDeliveries();
+                    if (activeDeliveries.isEmpty()) {
+                        System.out.println("No active deliveries found.");
+                    } else {
+                        System.out.println("Active Deliveries (Pending and Out for Delivery):");
+                        System.out.println("==================================================");
+                        for (Delivery d : activeDeliveries) {
+                            System.out.println(d);
+                            System.out.println("-------------------------");
+                        }
+                    }
                     System.out.println("\nPress Enter to continue...");
                     scanner.nextLine();
                     break;

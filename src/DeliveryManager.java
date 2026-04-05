@@ -126,7 +126,7 @@ public class DeliveryManager {
 
         for (Delivery delivery : deliveries) {
             String status = delivery.getStatus().toLowerCase();
-            if (status.equals("delivered") || status.equals("pending")) {
+            if (status.equals("pending") || status.equals("out for delivery")) {
                 System.out.println(delivery);
                 System.out.println("-------------------------");
                 found = true;
@@ -134,8 +134,34 @@ public class DeliveryManager {
         }
 
         if (!found) {
-            System.out.println("No delivered or pending deliveries found.");
+            System.out.println("No active deliveries found.");
         }
+    }
+
+    // New methods that return data instead of printing
+    public ArrayList<Delivery> getActiveDeliveries() {
+        ArrayList<Delivery> result = new ArrayList<>();
+        for (Delivery delivery : deliveries) {
+            String status = delivery.getStatus().toLowerCase();
+            if (status.equals("pending") || status.equals("out for delivery")) {
+                result.add(delivery);
+            }
+        }
+        return result;
+    }
+
+    public ArrayList<Delivery> getAllDeliveriesList() {
+        return new ArrayList<>(deliveries); // Return a copy
+    }
+
+    public ArrayList<Delivery> getDeliveriesByStatus(String status) {
+        ArrayList<Delivery> result = new ArrayList<>();
+        for (Delivery delivery : deliveries) {
+            if (delivery.getStatus().equalsIgnoreCase(status)) {
+                result.add(delivery);
+            }
+        }
+        return result;
     }
 
     public void saveToFile() {

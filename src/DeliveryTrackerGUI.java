@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 public class DeliveryTrackerGUI extends JFrame {
     private DeliveryManager deliveryManager;
@@ -116,10 +117,14 @@ public class DeliveryTrackerGUI extends JFrame {
     private class ViewDeliveriesListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             displayArea.setText("All Deliveries:\n\n");
-            deliveryManager.displayAllDeliveries();
-            // Since displayAllDeliveries prints to console, we need to capture it
-            // For now, let's implement a method to get the string representation
-            displayArea.append(getAllDeliveriesText());
+            ArrayList<Delivery> allDeliveries = deliveryManager.getAllDeliveriesList();
+            if (allDeliveries.isEmpty()) {
+                displayArea.append("No deliveries to display.\n");
+            } else {
+                for (Delivery delivery : allDeliveries) {
+                    displayArea.append(delivery + "\n-------------------------\n");
+                }
+            }
         }
     }
 
@@ -197,8 +202,14 @@ public class DeliveryTrackerGUI extends JFrame {
             if (status == null) return;
 
             displayArea.setText("Deliveries with status '" + status + "':\n\n");
-            deliveryManager.displayDeliveriesByStatus(status);
-            displayArea.append(getDeliveriesByStatusText(status));
+            ArrayList<Delivery> filteredDeliveries = deliveryManager.getDeliveriesByStatus(status);
+            if (filteredDeliveries.isEmpty()) {
+                displayArea.append("No deliveries found with status: " + status + "\n");
+            } else {
+                for (Delivery delivery : filteredDeliveries) {
+                    displayArea.append(delivery + "\n-------------------------\n");
+                }
+            }
         }
     }
 
@@ -206,7 +217,10 @@ public class DeliveryTrackerGUI extends JFrame {
         public void actionPerformed(ActionEvent e) {
             deliveryManager.sortByStatus();
             displayArea.setText("Deliveries sorted by status (Pending first, Delivered last):\n\n");
-            displayArea.append(getAllDeliveriesText());
+            ArrayList<Delivery> sortedDeliveries = deliveryManager.getAllDeliveriesList();
+            for (Delivery delivery : sortedDeliveries) {
+                displayArea.append(delivery + "\n-------------------------\n");
+            }
         }
     }
 
@@ -214,52 +228,25 @@ public class DeliveryTrackerGUI extends JFrame {
         public void actionPerformed(ActionEvent e) {
             deliveryManager.sortByPackageId();
             displayArea.setText("Deliveries sorted by Package ID:\n\n");
-            displayArea.append(getAllDeliveriesText());
+            ArrayList<Delivery> sortedDeliveries = deliveryManager.getAllDeliveriesList();
+            for (Delivery delivery : sortedDeliveries) {
+                displayArea.append(delivery + "\n-------------------------\n");
+            }
         }
     }
 
     private class ShowActiveDeliveriesListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             displayArea.setText("Active Deliveries (Pending and Out for Delivery):\n\n");
-            deliveryManager.displayDeliveredAndPending();
-            displayArea.append(getActiveDeliveriesText());
-        }
-    }
-
-    // Helper methods to get text representations
-    private String getAllDeliveriesText() {
-        StringBuilder sb = new StringBuilder();
-        for (Delivery delivery : deliveryManager.getAllDeliveries()) {
-            sb.append(delivery).append("\n-------------------------\n");
-        }
-        return sb.toString();
-    }
-
-    private String getDeliveriesByStatusText(String status) {
-        StringBuilder sb = new StringBuilder();
-        for (Delivery delivery : deliveryManager.getAllDeliveries()) {
-            if (delivery.getStatus().equalsIgnoreCase(status)) {
-                sb.append(delivery).append("\n-------------------------\n");
+            ArrayList<Delivery> activeDeliveries = deliveryManager.getActiveDeliveries();
+            if (activeDeliveries.isEmpty()) {
+                displayArea.append("No active deliveries found.\n");
+            } else {
+                for (Delivery delivery : activeDeliveries) {
+                    displayArea.append(delivery + "\n-------------------------\n");
+                }
             }
         }
-        if (sb.length() == 0) {
-            sb.append("No deliveries found with status: ").append(status).append("\n");
-        }
-        return sb.toString();
-    }
-
-    private String getActiveDeliveriesText() {
-        StringBuilder sb = new StringBuilder();
-        for (Delivery delivery : deliveryManager.getAllDeliveries()) {
-            String status = delivery.getStatus().toLowerCase();
-            if (status.equals("pending") || status.equals("out for delivery")) {
-                sb.append(delivery).append("\n-------------------------\n");
-            }
-        }
-        if (sb.length() == 0) {
-            sb.append("No active deliveries found.\n");
-        }
-        return sb.toString();
     }
 
     public static void main(String[] args) {
