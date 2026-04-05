@@ -9,6 +9,19 @@ public class DeliveryTrackerGUI extends JFrame {
     private JTextArea displayArea;
     private JButton addButton, viewButton, searchButton, updateButton, removeButton;
     private JButton totalButton, filterButton, sortStatusButton, sortIdButton, showActiveButton;
+    private JButton themeToggleButton;
+    private JPanel buttonPanel;
+    
+    // Theme state
+    private boolean isDarkTheme = true;
+    
+    // Theme colors
+    private final Color DARK_BG = new Color(25, 25, 25);
+    private final Color DARK_FG = Color.GREEN;
+    private final Color DARK_TEXT_BG = Color.BLACK;
+    private final Color LIGHT_BG = new Color(240, 240, 240);
+    private final Color LIGHT_FG = Color.BLACK;
+    private final Color LIGHT_TEXT_BG = Color.WHITE;
 
     public DeliveryTrackerGUI() {
         deliveryManager = new DeliveryManager();
@@ -34,18 +47,22 @@ public class DeliveryTrackerGUI extends JFrame {
         sortStatusButton = new JButton("Sort by Status");
         sortIdButton = new JButton("Sort by Package ID");
         showActiveButton = new JButton("Show Active Deliveries");
+        themeToggleButton = new JButton("🌙 Dark Theme");
 
         // Create display area
         displayArea = new JTextArea();
         displayArea.setEditable(false);
         displayArea.setFont(new Font("Monospaced", Font.PLAIN, 12));
+        displayArea.setBackground(Color.BLACK);
+        displayArea.setForeground(Color.GREEN);
         JScrollPane scrollPane = new JScrollPane(displayArea);
         add(scrollPane, BorderLayout.CENTER);
 
         // Create button panel with sections
-        JPanel buttonPanel = new JPanel();
+        buttonPanel = new JPanel();
         buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS));
         buttonPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        buttonPanel.setBackground(new Color(25, 25, 25));
 
         // 📦 Delivery Actions Section
         JPanel deliveryActionsPanel = new JPanel(new GridLayout(1, 3, 5, 5));
@@ -78,6 +95,15 @@ public class DeliveryTrackerGUI extends JFrame {
         sortingStatsPanel.add(sortIdButton);
         buttonPanel.add(sortingStatsPanel);
 
+        // Add spacing
+        buttonPanel.add(Box.createVerticalStrut(10));
+
+        // 🎨 Theme Section
+        JPanel themePanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        themePanel.setBorder(BorderFactory.createTitledBorder("🎨 Theme"));
+        themePanel.add(themeToggleButton);
+        buttonPanel.add(themePanel);
+
         add(buttonPanel, BorderLayout.WEST);
 
         // Add action listeners
@@ -91,17 +117,43 @@ public class DeliveryTrackerGUI extends JFrame {
         sortStatusButton.addActionListener(new SortByStatusListener());
         sortIdButton.addActionListener(new SortByIdListener());
         showActiveButton.addActionListener(new ShowActiveDeliveriesListener());
+        themeToggleButton.addActionListener(new ThemeToggleListener());
 
         // Initial display
         displayWelcomeMessage();
 
         setVisible(true);
+        
+        // Apply initial theme
+        applyTheme();
     }
 
     private void displayWelcomeMessage() {
         displayArea.setText("Welcome to Delivery Management System!\n\n");
         displayArea.append("Loaded " + deliveryManager.getTotalDeliveries() + " deliveries from file.\n\n");
         displayArea.append("Use the buttons on the left to manage deliveries.\n");
+    }
+
+    private void applyTheme() {
+        if (isDarkTheme) {
+            // Dark theme
+            displayArea.setBackground(DARK_TEXT_BG);
+            displayArea.setForeground(DARK_FG);
+            buttonPanel.setBackground(DARK_BG);
+            themeToggleButton.setText("☀️ Light Theme");
+        } else {
+            // Light theme
+            displayArea.setBackground(LIGHT_TEXT_BG);
+            displayArea.setForeground(LIGHT_FG);
+            buttonPanel.setBackground(LIGHT_BG);
+            themeToggleButton.setText("🌙 Dark Theme");
+        }
+        
+        // Refresh the UI
+        buttonPanel.revalidate();
+        buttonPanel.repaint();
+        displayArea.revalidate();
+        displayArea.repaint();
     }
 
     // Action Listeners
@@ -266,6 +318,13 @@ public class DeliveryTrackerGUI extends JFrame {
                     displayArea.append(delivery + "\n-------------------------\n");
                 }
             }
+        }
+    }
+
+    private class ThemeToggleListener implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
+            isDarkTheme = !isDarkTheme;
+            applyTheme();
         }
     }
 
