@@ -77,7 +77,7 @@ public class DeliveryManager {
      * Validates that the status is one of the supported values.
      */
     public boolean isValidStatus(String status) {
-        return status.equalsIgnoreCase("Pending") || status.equalsIgnoreCase("Out for Delivery") ||
+        return status.equalsIgnoreCase("Pending") || status.equalsIgnoreCase("Shipped") || status.equalsIgnoreCase("Out for Delivery") ||
                status.equalsIgnoreCase("Delivered") || status.equalsIgnoreCase("Failed") || status.equalsIgnoreCase("Returned");
     }
 
@@ -143,11 +143,12 @@ public class DeliveryManager {
     private int getStatusOrder(String status) {
         switch (status.toLowerCase()) {
             case "pending": return 1;
-            case "out for delivery": return 2;
-            case "delivered": return 3;
-            case "failed": return 4;
-            case "returned": return 5;
-            default: return 6;
+            case "shipped": return 2;
+            case "out for delivery": return 3;
+            case "delivered": return 4;
+            case "failed": return 5;
+            case "returned": return 6;
+            default: return 7;
         }
     }
 

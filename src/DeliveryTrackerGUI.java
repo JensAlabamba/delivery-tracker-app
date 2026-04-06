@@ -311,7 +311,7 @@ public class DeliveryTrackerGUI extends JFrame {
             String address = JOptionPane.showInputDialog("Enter Address:");
             if (address == null || address.trim().isEmpty()) return;
 
-            String[] statuses = {"Pending", "Out for Delivery", "Delivered", "Failed", "Returned"};
+            String[] statuses = {"Pending", "Shipped", "Out for Delivery", "Delivered", "Failed", "Returned"};
             String status = (String) JOptionPane.showInputDialog(null, "Select Status:",
                 "Status Selection", JOptionPane.QUESTION_MESSAGE, null, statuses, statuses[0]);
             if (status == null) return;
@@ -380,7 +380,7 @@ public class DeliveryTrackerGUI extends JFrame {
             String packageId = JOptionPane.showInputDialog("Enter Package ID to update:");
             if (packageId == null || packageId.trim().isEmpty()) return;
 
-            String[] statuses = {"Pending", "Out for Delivery", "Delivered", "Failed", "Returned"};
+            String[] statuses = {"Pending", "Shipped", "Out for Delivery", "Delivered", "Failed", "Returned"};
             String newStatus = (String) JOptionPane.showInputDialog(null, "Select New Status:",
                 "Status Selection", JOptionPane.QUESTION_MESSAGE, null, statuses, statuses[0]);
             if (newStatus == null) return;
@@ -447,7 +447,7 @@ public class DeliveryTrackerGUI extends JFrame {
          * Prompts for status and renders only matching deliveries.
          */
         public void actionPerformed(ActionEvent e) {
-            String[] statuses = {"Pending", "Out for Delivery", "Delivered", "Failed", "Returned"};
+            String[] statuses = {"Pending", "Shipped", "Out for Delivery", "Delivered", "Failed", "Returned"};
             String status = (String) JOptionPane.showInputDialog(null, "Select Status to Filter:",
                 "Status Selection", JOptionPane.QUESTION_MESSAGE, null, statuses, statuses[0]);
             if (status == null) return;
